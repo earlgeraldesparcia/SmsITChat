@@ -1,0 +1,14 @@
+{
+  "name": "smsitchat",
+  "version": "1.0.0",
+  "scripts": {
+    "serve": "firebase emulators:start --only hosting,firestore,auth",
+    "deploy": "firebase deploy --only hosting"
+  },
+  "devDependencies": {
+    "firebase-tools": "^12.0.0"
+  },
+  "dependencies": {
+    "firebase": "^12.1.0"
+  }
+}
