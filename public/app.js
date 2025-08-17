@@ -27,7 +27,7 @@ const messageForm = document.getElementById("messageForm");
 const messageInput = document.getElementById("messageInput");
 const messagesList = document.getElementById("messages");
 
-// 🔹 Handle email/password login or signup
+// Email/Password login or signup
 emailForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const email = document.getElementById("email").value;
@@ -37,7 +37,6 @@ emailForm.addEventListener("submit", async (e) => {
     await signInWithEmailAndPassword(auth, email, password);
   } catch (error) {
     if (error.code === "auth/user-not-found") {
-      // Auto create account if not found
       await createUserWithEmailAndPassword(auth, email, password);
     } else {
       alert(error.message);
@@ -45,7 +44,7 @@ emailForm.addEventListener("submit", async (e) => {
   }
 });
 
-// 🔹 Google sign-in
+// Google sign-in
 googleBtn.addEventListener("click", async () => {
   try {
     await signInWithPopup(auth, provider);
@@ -54,12 +53,12 @@ googleBtn.addEventListener("click", async () => {
   }
 });
 
-// 🔹 Sign out
+// Sign out
 signOutBtn.addEventListener("click", async () => {
   await signOut(auth);
 });
 
-// 🔹 Listen for auth state changes
+// Auth state changes
 onAuthStateChanged(auth, (user) => {
   if (user) {
     userLabel.textContent = `Signed in as ${user.email || user.displayName}`;
@@ -78,7 +77,7 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
-// 🔹 Send a message
+// Send message
 messageForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const text = messageInput.value.trim();
@@ -97,7 +96,7 @@ messageForm.addEventListener("submit", async (e) => {
   }
 });
 
-// 🔹 Listen for new messages in real-time
+// Listen for messages in real-time
 function listenForMessages() {
   const q = query(collection(db, "messages"), orderBy("timestamp", "asc"));
   onSnapshot(q, (snapshot) => {
@@ -108,7 +107,6 @@ function listenForMessages() {
       li.textContent = `${msg.email}: ${msg.text}`;
       messagesList.appendChild(li);
     });
-    // Auto scroll to latest message
     messagesList.scrollTop = messagesList.scrollHeight;
   });
 }
